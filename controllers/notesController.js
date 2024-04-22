@@ -29,7 +29,8 @@ const fetchNote = async (req, res) => {
 };
 
 const fetchRating = async(req,res) => {
-    const ratingID = req.params.user;
+    const ratingID = req.params.id;
+    console.log(ratingID)
     const rating = await Rating.findById(ratingID);
     res.json({rating: rating});
 
@@ -86,17 +87,17 @@ const updateNote = async (req, res) => {
 };
 
 const updateRating = async (req,res) => {
-    const user = req.params.user
+   const ratingID = req.params.id
+    const {user, rating, description} = req.body;
 
-    const {rating, description} = req.body;
-
-    const rate = await Rating.findByIdAndUpdate(user, {
+    const rate = await Rating.findByIdAndUpdate(ratingID, {
+        user: user,
         rating: rating,
         description: description
     });
 
-    const updatedRate = await Rating.findById(user)
-    res.json({rating: rate})
+    const updatedRate = await Rating.findById(ratingID)
+    res.json({rating: updatedRate})
 }
 
 const deleteNote = async(req, res) => {
@@ -105,19 +106,15 @@ const deleteNote = async(req, res) => {
     // 3. Send Response
     const noteId = req.params.id
   // --------------------------------(1)
-  await Note.deleteOne({
-    id: noteId
-  })
+  await Note.findByIdAndDelete(noteId)
     // --------------------------------(2)
   res.json({success: "Record has been deleted successfully"})
 }
 
 const deleteRating = async(req,res) => {
-    const user = req.params.user
+    const ratingID = req.params.id
 
-    await Rating.deleteOne({
-        user: user
-    })
+    await Rating.findByIdAndDelete(ratingID)
 
     res.json({success: "Record has been deleted successfully"})
 }
