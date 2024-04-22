@@ -28,13 +28,16 @@ app.get("/notes", notesController.fetchAllNotes);
 app.get("/ratings", notesController.fetchAllRatings)
 // -----------------> GET all Notes - [Read]
 app.get("/notes/:id", notesController.fetchNote);
-app.get("/ratings/:name", notesController.fetchRating)
+app.get("/ratings/:user", notesController.fetchRating)
 // -----------------> GET a Specific Note by ID - [Read]
 app.post("/notes", notesController.createNote);
+app.post("/ratings", notesController.createRating);
 // -----------------> Create a Notes - [Create / POST]
 app.put("/notes/:id", notesController.updateNote);
+app.put("/ratings/:user", notesController.updateRating)
 // -----------------> Update a Specific Note - [Update]
 app.delete("/notes/:id", notesController.deleteNote);
+app.delete("/ratings/:user", notesController.deleteRating)
 // -----------------> Delete a Specific Note - [Delete]
 // -------------------------------------------------Routing
 

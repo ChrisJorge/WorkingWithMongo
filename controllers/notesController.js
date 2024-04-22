@@ -58,7 +58,7 @@ const createRating = async (req,res) => {
     const rating = req.body.rating;
     const description = req.body.description;
 
-    const rate = await Note.create({
+    const rate = await Rating.create({
         user: user,
         rating: rating,
         description: description
@@ -130,5 +130,7 @@ module.exports = {
     createNote,
     createRating,
     updateNote,
-    deleteNote
+    updateRating,
+    deleteNote,
+    deleteRating
 }
