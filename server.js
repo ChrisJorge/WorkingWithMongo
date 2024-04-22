@@ -7,6 +7,7 @@ const connectToDb = require("./config/connectToDb.js");
 // This pulls our Mongoose connection into application
 
 const Note = require("./models/note.js");
+const rating = require("./models/rating.js")
 const notesController = require("./controllers/notesController.js");
 const cors = require("cors");
 // ---> Recieving reqs on cross-origins **
@@ -24,8 +25,10 @@ app.get("/", (req, res) => {
 
 // Obj: We want to establish CRUD routes for our Notes Model
 app.get("/notes", notesController.fetchAllNotes);
+app.get("/ratings", notesController.fetchAllRatings)
 // -----------------> GET all Notes - [Read]
 app.get("/notes/:id", notesController.fetchNote);
+app.get("/ratings/:name", notesController.fetchRating)
 // -----------------> GET a Specific Note by ID - [Read]
 app.post("/notes", notesController.createNote);
 // -----------------> Create a Notes - [Create / POST]

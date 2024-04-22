@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const ratingSchema = new mongoose.Schema({
 
-    User: String,
+    user: String,
     rating: Number,
     description: String,
 })
