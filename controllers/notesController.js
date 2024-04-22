@@ -54,7 +54,7 @@ const createNote = async (req, res) => {
 };
 
 const createRating = async (req,res) => {
-    const user = req.body.title;
+    const user = req.body.user;
     const rating = req.body.rating;
     const description = req.body.description;
 
