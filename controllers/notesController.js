@@ -157,7 +157,7 @@ const deleteRating = async(req,res) => {
 const deleteFruit = async(req,res) => {
   const fruitID = req.params.id;
 
-  await Rating.findByIdAndDelete(fruitID);
+  await Fruit.findByIdAndDelete(fruitID);
   res.json({success: "Record has been deleted successfully"})
 }
 
