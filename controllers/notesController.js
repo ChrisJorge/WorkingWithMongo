@@ -1,3 +1,4 @@
+const Fruit = require("../models/fruit");
 const Note = require("../models/note");
 const Rating = require('../models/rating')
 
@@ -11,8 +12,13 @@ const fetchAllNotes = async (req, res) => {
 };
 
 const fetchAllRatings = async(req,res) => {
-    const rating = await Rating.find()
-    res.json({rating: rating})
+    const rating = await Rating.find();
+    res.json({rating: rating});
+}
+
+const fetchAllFruit = async(req,res) => {
+  const fruit = await Fruit.find();
+  res.json({fruit: fruit});
 }
 
 const fetchNote = async (req, res) => {
@@ -30,10 +36,16 @@ const fetchNote = async (req, res) => {
 
 const fetchRating = async(req,res) => {
     const ratingID = req.params.id;
-    console.log(ratingID)
+    console.log(ratingID);
     const rating = await Rating.findById(ratingID);
     res.json({rating: rating});
 
+}
+
+const fetchFruit = async(req,res) => {
+  const fruitID = req.params.id;
+  const fruit = await Fruit.findById(fruitID);
+  res.json({fruit: fruit})
 }
 
 const createNote = async (req, res) => {
@@ -68,6 +80,16 @@ const createRating = async (req,res) => {
     res.json({rating: rate})
 }
 
+const createFruit = async(req,res) => {
+  const {name,color} = req.body;
+
+  const fruit = await Fruit.create({
+    name: name,
+    color: color
+  });
+
+  res.json({fruit: fruit});
+};
 const updateNote = async (req, res) => {
   // 1. Get id off the url
   // 2. Get the data off the id
@@ -87,7 +109,7 @@ const updateNote = async (req, res) => {
 };
 
 const updateRating = async (req,res) => {
-   const ratingID = req.params.id
+   const ratingID = req.params.id;
     const {user, rating, description} = req.body;
 
     const rate = await Rating.findByIdAndUpdate(ratingID, {
@@ -96,8 +118,21 @@ const updateRating = async (req,res) => {
         description: description
     });
 
-    const updatedRate = await Rating.findById(ratingID)
-    res.json({rating: updatedRate})
+    const updatedRate = await Rating.findById(ratingID);
+    res.json({rating: updatedRate});
+};
+
+const updateFruit = async(req,res) => {
+  const fruitID = req.params.id;
+  const {name,color} = req.body;
+
+  await Fruit.findByIdAndUpdate(fruitID, {
+    name: name,
+    color: color
+  });
+
+  const updatedFruit = await Fruit.findById(fruitID);
+  res.json({fruit: updateFruit})
 }
 
 const deleteNote = async(req, res) => {
@@ -112,22 +147,34 @@ const deleteNote = async(req, res) => {
 }
 
 const deleteRating = async(req,res) => {
-    const ratingID = req.params.id
+    const ratingID = req.params.id;
 
-    await Rating.findByIdAndDelete(ratingID)
+    await Rating.findByIdAndDelete(ratingID);
 
-    res.json({success: "Record has been deleted successfully"})
+    res.json({success: "Record has been deleted successfully"});
+}
+
+const deleteFruit = async(req,res) => {
+  const fruitId = req.params.id;
+
+  await Rating.findByIdAndDelete(fruitID);
+  res.json({success: "Record has been deleted successfully"})
 }
 
 module.exports = {
     fetchAllNotes,
     fetchAllRatings,
+    fetchAllFruit,
     fetchNote,
     fetchRating,
+    fetchFruit,
     createNote,
     createRating,
+    createFruit,
     updateNote,
     updateRating,
+    updateFruit,
     deleteNote,
-    deleteRating
+    deleteRating,
+    deleteFruit
 }
