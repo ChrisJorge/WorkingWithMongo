@@ -35,11 +35,11 @@ app.get("/fruit/:id", notesController.fetchFruit);
 // -----------------> GET a Specific Note by ID - [Read]
 app.post("/notes", notesController.createNote);
 app.post("/ratings", notesController.createRating);
-app.post("/fruit/:id", notesController.createFruit);
+app.post("/fruit", notesController.createFruit);
 // -----------------> Create a Notes - [Create / POST]
 app.put("/notes/:id", notesController.updateNote);
 app.put("/ratings/:id", notesController.updateRating);
-app.put("/fruit/:id"), notesController.updateFruit;
+app.put("/fruit/:id", notesController.updateFruit);
 // -----------------> Update a Specific Note - [Update]
 app.delete("/notes/:id", notesController.deleteNote);
 app.delete("/ratings/:id", notesController.deleteRating)

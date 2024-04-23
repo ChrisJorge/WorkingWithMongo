@@ -126,13 +126,13 @@ const updateFruit = async(req,res) => {
   const fruitID = req.params.id;
   const {name,color} = req.body;
 
-  await Fruit.findByIdAndUpdate(fruitID, {
+  const fruit = await Fruit.findByIdAndUpdate(fruitID, {
     name: name,
     color: color
   });
 
   const updatedFruit = await Fruit.findById(fruitID);
-  res.json({fruit: updateFruit})
+  res.json({fruit: updatedFruit})
 }
 
 const deleteNote = async(req, res) => {
@@ -155,7 +155,7 @@ const deleteRating = async(req,res) => {
 }
 
 const deleteFruit = async(req,res) => {
-  const fruitId = req.params.id;
+  const fruitID = req.params.id;
 
   await Rating.findByIdAndDelete(fruitID);
   res.json({success: "Record has been deleted successfully"})
