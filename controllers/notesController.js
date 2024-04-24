@@ -1,6 +1,7 @@
 const Fruit = require("../models/fruit");
 const Note = require("../models/note");
 const Rating = require('../models/rating')
+const Car = require("../models/car.js");
 
 const fetchAllNotes = async (req, res) => {
   // 1. Get all Notes from DB
@@ -19,6 +20,11 @@ const fetchAllRatings = async(req,res) => {
 const fetchAllFruit = async(req,res) => {
   const fruit = await Fruit.find();
   res.json({fruit: fruit});
+}
+
+const fetchAllCars = async(req,res) => {
+  const car = await Car.find();
+  res.json({car: car});
 }
 
 const fetchNote = async (req, res) => {
@@ -46,6 +52,13 @@ const fetchFruit = async(req,res) => {
   const fruitID = req.params.id;
   const fruit = await Fruit.findById(fruitID);
   res.json({fruit: fruit})
+}
+
+
+const fetchCar = async(req,res) => {
+  const carID = req.params.id;
+  const car = await Car.findById(carID);
+  res.json({car: car});
 }
 
 const createNote = async (req, res) => {
@@ -89,6 +102,17 @@ const createFruit = async(req,res) => {
   });
 
   res.json({fruit: fruit});
+};
+
+const createCar = async(req,res) => {
+  const {make,model} = req.body;
+
+  const car = await Car.create({
+    make: make,
+    model: model
+  });
+
+  res.json({car: car});
 };
 const updateNote = async (req, res) => {
   // 1. Get id off the url
@@ -135,6 +159,19 @@ const updateFruit = async(req,res) => {
   res.json({fruit: updatedFruit})
 }
 
+const updateCar = async(req,res) => {
+  const carID = req.params.id;
+  const {make,model} = req.body;
+
+  const car = await Car.findByIdAndUpdate(carID, {
+    make: make,
+    model: model
+  });
+
+  const updatedCar = await Car.findById(carID);
+  res.json({car: updatedCar})
+}
+
 const deleteNote = async(req, res) => {
     // 1. Get the id off the url
     // 2. Delete the record
@@ -161,20 +198,32 @@ const deleteFruit = async(req,res) => {
   res.json({success: "Record has been deleted successfully"})
 }
 
+const deleteCar = async(req,res) => {
+  const carID = req.params.id;
+  console.log(carID)
+  await Car.findByIdAndDelete(carID);
+  res.json({success: "Record has been deleted successfully"});
+}
+
 module.exports = {
     fetchAllNotes,
     fetchAllRatings,
     fetchAllFruit,
+    fetchAllCars,
     fetchNote,
     fetchRating,
     fetchFruit,
+    fetchCar,
     createNote,
     createRating,
     createFruit,
+    createCar,
     updateNote,
     updateRating,
     updateFruit,
+    updateCar,
     deleteNote,
     deleteRating,
-    deleteFruit
+    deleteFruit,
+    deleteCar
 }
