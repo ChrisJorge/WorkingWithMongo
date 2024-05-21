@@ -12,6 +12,7 @@ const fetchAllNotes = async (req, res) => {
   // --------------------------------(2)
 };
 
+
 const fetchAllRatings = async(req,res) => {
     const rating = await Rating.find();
     res.json({rating: rating});

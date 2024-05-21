@@ -7,4 +7,4 @@ const connectToDb = async() => {
 // -> This is how the app connects to our database
     console.log("Currently Connected to MongoDB Cluster")
 }
-module.exports = connectToDb
+module.exports = connectToDb 
